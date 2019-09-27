@@ -19,31 +19,60 @@ class Tetromino {
     private int block_size = 25;
     private int shape_grid_size = 9;
     private int shape_size = 4;
-    private int shape_coordinates = 2;
     private int grid_start_x = 0;
     private int grid_start_y = 0;
     LinkedList<Rectangle> shape;
 
-    int[] initJ = {
+    int[] init_i = {
+            0, 1, 0,
+            0, 1, 0,
+            0, 1, 0
+    };
+
+    int[] init_j = {
             0, 1, 0,
             0, 1, 0,
             1, 1, 0
     };
 
-    int[] initS = {
+    int[] init_l = {
             0, 1, 0,
+            0, 1, 0,
+            0, 1, 1
+    };
+
+    int[] init_s = {
+            0, 0, 0,
+            0, 1, 1,
+            1, 1, 0
+    };
+
+    int[] init_z = {
+            0, 0, 0,
             1, 1, 0,
-            1, 0, 0
+            0, 1, 1
+    };
+
+    int [] init_t = {
+            0,0,0,
+            1,1,1,
+            0,1,0
+    };
+
+    int[] init_o = {
+            1,1,1,
+            1,1,1,
+            1,1,1
     };
 
 
     public Tetromino(String shape) {
         switch (shape) {
             case "J":
-                initShape(initJ);
+                initShape(init_j);
                 break;
             case "S":
-                initShape(initS);
+                initShape(init_z);
                 break;
             default:
                 System.out.println("error: no shape found");
