@@ -18,9 +18,6 @@ import java.util.LinkedList;
  */
 public class Main extends Application {
 
-    private Rectangle rectangle;
-    private int block_size = 25;
-
     @Override
     public void start(Stage primaryStage) throws Exception {
         //Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
@@ -28,21 +25,11 @@ public class Main extends Application {
         primaryStage.setTitle("Tetris Test");
         primaryStage.setScene(new Scene(root, 400, 800));
 
-        double[][] l_map = new Tetromino(block_size).getShape();
-        LinkedList<Rectangle> l_shape = new LinkedList<>();
-        for (int i = 0; i < l_map.length; i++) {
-            rectangle = new TetrominoBlock().getRectangle(block_size);
-            rectangle.setX(l_map[i][0]);
-            rectangle.setY(l_map[i][1]);
-            l_shape.add(rectangle);
-        }
-
-        for (int i = 0; i < l_shape.size(); i++) {
-            root.getChildren().add(l_shape.get(i));
+        LinkedList<Rectangle> tetromino = new Tetromino("S").getShape();
+        for (int i = 0; i < tetromino.size();i++) {
+            root.getChildren().add(tetromino.get(i));
         }
         primaryStage.show();
-
-        System.out.println(rectangle.getBoundsInLocal());
 
         new AnimationTimer() {
 
@@ -53,7 +40,6 @@ public class Main extends Application {
 
         }.start();
     }
-
 
     public static void main(String[] args) {
         launch(args);
