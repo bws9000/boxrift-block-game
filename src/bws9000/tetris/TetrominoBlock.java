@@ -9,13 +9,11 @@ import javafx.scene.shape.Rectangle;
  * @version 0.1
  * @since   2019-09-21
  */
-public class TetrominoBlock {
-
+public class TetrominoBlock extends Rectangle {
     Rectangle getRectangle(int block_size){
-        Rectangle r = new Rectangle();
-        r.setWidth(block_size);
-        r.setHeight(block_size);
-        return r;
+        this.setWidth(block_size);
+        this.setHeight(block_size);
+        return this;
     }
 
 }

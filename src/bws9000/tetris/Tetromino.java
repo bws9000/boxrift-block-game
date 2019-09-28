@@ -3,6 +3,8 @@ package bws9000.tetris;
 import javafx.scene.shape.Rectangle;
 
 import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static javafx.application.Platform.exit;
 
@@ -13,7 +15,7 @@ import static javafx.application.Platform.exit;
  * @version 0.1
  * @since 2019-09-21
  */
-class Tetromino {
+public class Tetromino {
 
     private Rectangle rectangle;
     private int block_size = 25;
@@ -24,9 +26,9 @@ class Tetromino {
     LinkedList<Rectangle> shape;
 
     int[] init_i = {
-            0, 1, 0,
-            0, 1, 0,
-            0, 1, 0
+            1, 0, 0,
+            1, 0, 0,
+            1, 0, 0
     };
 
     int[] init_j = {
@@ -36,9 +38,9 @@ class Tetromino {
     };
 
     int[] init_l = {
-            0, 1, 0,
-            0, 1, 0,
-            0, 1, 1
+            1, 0, 0,
+            1, 0, 0,
+            1, 1, 0
     };
 
     int[] init_s = {
@@ -53,16 +55,16 @@ class Tetromino {
             0, 1, 1
     };
 
-    int [] init_t = {
-            0,0,0,
-            1,1,1,
-            0,1,0
+    int[] init_t = {
+            0, 0, 0,
+            1, 1, 1,
+            0, 1, 0
     };
 
     int[] init_o = {
-            1,1,1,
-            1,1,1,
-            1,1,1
+            1, 1, 1,
+            1, 1, 1,
+            1, 1, 1
     };
 
 
@@ -72,7 +74,22 @@ class Tetromino {
                 initShape(init_j);
                 break;
             case "S":
+                initShape(init_s);
+                break;
+            case "L":
+                initShape(init_l);
+                break;
+            case "O":
+                initShape(init_o);
+                break;
+            case "T":
+                initShape(init_t);
+                break;
+            case "Z":
                 initShape(init_z);
+                break;
+            case "I":
+                initShape(init_i);
                 break;
             default:
                 System.out.println("error: no shape found");
@@ -91,12 +108,36 @@ class Tetromino {
         }
     }
 
+    public void descend() {
+        for (Rectangle r : this.shape) {
+            double current_y = r.getY();
+            r.setY(current_y + block_size);
+        }
+    }
+
     /**
      * @return shape
      */
 
     public LinkedList<Rectangle> getShape() {
         return this.shape;
+    }
+
+    public void setShape(LinkedList<Rectangle> shape) {
+        this.shape = shape;
+    }
+
+    public int getShapeWidth() {
+        int width = 0;
+        List<Integer> x = new LinkedList();
+        for(int i=0;i<this.shape.size();i++){
+            x.add((int)this.shape.get(i).getX());
+        }
+        List<Integer> no_duplicate_x = x.stream().distinct().collect(Collectors.toList());
+        for(int nd : no_duplicate_x){
+            width += (nd == 0) ? block_size:25;
+        }
+        return width;
     }
 
     /**
@@ -112,13 +153,13 @@ class Tetromino {
         double[][] shape_c = new double[shape_grid_size][2];
         int x = this.grid_start_x;
         int y = this.grid_start_y;
-        int shape_index=0;
+        int shape_index = 0;
         for (int i = 0; i < shape_grid_size; i++) {
             y += (i != 0 && i % 3 == 0) ? this.block_size : 0;
             x = (i % 3 == 0) ? 0 : (x += this.block_size);
             coordinates[i][0] = x;
             coordinates[i][1] = y;
-            if(shape_map[i] == 1){
+            if (shape_map[i] == 1) {
                 shape_c[shape_index] = coordinates[i];
                 shape_index++;
             }
