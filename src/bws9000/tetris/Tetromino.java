@@ -17,30 +17,31 @@ import static javafx.application.Platform.exit;
  */
 public class Tetromino {
 
-    private Rectangle rectangle;
+    private TetrominoBlock rectangle;
+    public String shape_name;
     private int block_size = 25;
     private int shape_grid_size = 9;
     private int shape_size = 4;
     private int grid_start_x = 0;
     private int grid_start_y = 0;
-    LinkedList<Rectangle> shape;
+    LinkedList<TetrominoBlock> shape;
 
     int[] init_i = {
-            1, 0, 0,
-            1, 0, 0,
-            1, 0, 0
+            0, 1, 0,
+            0, 1, 0,
+            0, 1, 0
     };
 
     int[] init_j = {
             0, 1, 0,
             0, 1, 0,
-            1, 1, 0
+            1, 1, 0,
     };
 
     int[] init_l = {
-            1, 0, 0,
-            1, 0, 0,
-            1, 1, 0
+            0, 1, 0,
+            0, 1, 0,
+            0, 1, 1
     };
 
     int[] init_s = {
@@ -69,6 +70,7 @@ public class Tetromino {
 
 
     public Tetromino(String shape) {
+        this.shape_name = shape;
         switch (shape) {
             case "J":
                 initShape(init_j);
@@ -101,9 +103,10 @@ public class Tetromino {
         double[][] shape_coordinates = this.mapShape(coordinates);
         this.shape = new LinkedList<>();
         for (int i = 0; i < this.shape_size; i++) {
-            this.rectangle = new TetrominoBlock().getRectangle(block_size);
+            this.rectangle = new TetrominoBlock(this.shape_name);
             this.rectangle.setX(shape_coordinates[i][0]);
             this.rectangle.setY(shape_coordinates[i][1]);
+            this.rectangle.setShapeIndex(i);
             this.shape.add(rectangle);
         }
     }
@@ -115,22 +118,41 @@ public class Tetromino {
         }
     }
 
+    public void moveRight() {
+        for (Rectangle r : this.shape) {
+            double current_x = r.getX();
+            r.setX(current_x + block_size);
+        }
+    }
+
+    public void moveLeft() {
+        for (Rectangle r : this.shape) {
+            double current_x = r.getX();
+            r.setX(current_x - block_size);
+        }
+    }
+
+    public void rotate() {
+        for (Rectangle r : this.shape) {
+            double current_x = r.getX();
+        }
+    }
+
     /**
      * @return shape
      */
-
-    public LinkedList<Rectangle> getShape() {
+    public LinkedList<TetrominoBlock> getShape() {
         return this.shape;
     }
 
-    public void setShape(LinkedList<Rectangle> shape) {
+    public void setShape(LinkedList<TetrominoBlock> shape) {
         this.shape = shape;
     }
 
     public int getShapeWidth() {
         List<Integer> x = new LinkedList();
-        for(int i=0;i<this.shape.size();i++)
-            x.add((int)this.shape.get(i).getX());
+        for (int i = 0; i < this.shape.size(); i++)
+            x.add((int) this.shape.get(i).getX());
         List<Integer> no_duplicate_x = x.stream().distinct().collect(Collectors.toList());
         return no_duplicate_x.size() * block_size;
     }
