@@ -14,6 +14,18 @@ public class TetrominoTest {
     }
 
     @Test
+    public void testZShapeWidth(){
+        Tetromino tetromino = new Tetromino("Z");
+        assertEquals(75, tetromino.getShapeWidth());
+    }
+
+    @Test
+    public void testLShapeWidth(){
+        Tetromino tetromino = new Tetromino("L");
+        assertEquals(50, tetromino.getShapeWidth());
+    }
+
+    @Test
     public void testShapeDisplayedEvenlyWidthOnGrid(){
         Tetromino tetromino = new Tetromino("L");
         assertEquals(0, 400 % tetromino.getShapeWidth());
