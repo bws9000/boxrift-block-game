@@ -49,7 +49,7 @@ cmake-build-*/
 
 # IntelliJ
 out/
-src/bws9000/oracle_examples/
+src/oracle_examples/
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
