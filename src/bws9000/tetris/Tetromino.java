@@ -134,10 +134,7 @@ public class Tetromino {
             x.add((int)this.shape.get(i).getX());
         }
         List<Integer> no_duplicate_x = x.stream().distinct().collect(Collectors.toList());
-        for(int nd : no_duplicate_x){
-            width += 25;
-        }
-        return width;
+        return no_duplicate_x.size() * block_size;
     }
 
     /**
