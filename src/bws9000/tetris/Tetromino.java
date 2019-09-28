@@ -128,11 +128,9 @@ public class Tetromino {
     }
 
     public int getShapeWidth() {
-        int width = 0;
         List<Integer> x = new LinkedList();
-        for(int i=0;i<this.shape.size();i++){
+        for(int i=0;i<this.shape.size();i++)
             x.add((int)this.shape.get(i).getX());
-        }
         List<Integer> no_duplicate_x = x.stream().distinct().collect(Collectors.toList());
         return no_duplicate_x.size() * block_size;
     }
