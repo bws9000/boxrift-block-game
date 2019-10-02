@@ -201,7 +201,8 @@ public class Tetromino {
      *
      * @param x
      * @param y
-     * @return center coordinates of current shape based on Gameboard linklist
+     * @return boolean
+     * center coordinates of current shape based on Gameboard linklist
      */
     private boolean setCenter(double x, double y){
         return (this.center.get(this.center_position)[0][0] == x) &&
@@ -209,7 +210,7 @@ public class Tetromino {
     }
 
     /**
-     * @return shape(LinkedList of JavaFX Rectangles
+     * @return LinkedList JavaFX Rectangles
      */
     public LinkedList<TetrominoBlock> getShape() {
         return this.shape;
@@ -233,14 +234,14 @@ public class Tetromino {
      * returns coordinates of shape on game board
      * builds the shape from the top shape down
      *
-     * @return shape coordinates
+     * @return double[][] shape coordinates
      */
     private double[][] mapShape(double start_x, double start_y) {
         double x = start_x;
         double y = start_y;
         double[][] coordinates = new double[shape_grid_size][2];
         double[][] shape_c = new double[shape_grid_size][2];
-        
+
         int shape_index = 0;
         for (int i = 0; i < shape_grid_size; i++) {
             y += (i != 0 && i % 3 == 0) ? this.block_size : 0;
