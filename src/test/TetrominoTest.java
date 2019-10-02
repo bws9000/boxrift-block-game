@@ -32,14 +32,14 @@ public class TetrominoTest {
     public void testSCenterNode(){
         Tetromino tetromino = new Tetromino("S");
         LinkedList<TetrominoBlock> t = tetromino.getShape();
-        assertEquals(true, t.get(2).center_node);
+        assertEquals(true, t.get(2).isCenter_node());
     }
 
     @Test
     public void testCenterNode(){
         Tetromino tetromino = new Tetromino("O");
         LinkedList<TetrominoBlock> t = tetromino.getShape();
-        assertEquals(true, t.get(1).center_node);
+        assertEquals(true, t.get(1).isCenter_node());
     }
 
     @Test

@@ -1,5 +1,6 @@
 package bws9000.tetris;
 
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -8,13 +9,15 @@ import javafx.scene.shape.Rectangle;
  * @author Burt W Snyder
  * @version 0.1
  * @since 2019-09-21
+ *
+ * Java FX Rectangle object for Tetromino shape
  */
 public class TetrominoBlock extends Rectangle {
 
     double BLOCK_SIZE = 25;
-    public boolean center_node = false;
+    private boolean center_node;
     private String in_shape = "";
-    private int shape_index = 0;
+    public int shape_index = 0;
 
     TetrominoBlock(String shape) {
         this.setWidth(BLOCK_SIZE);
@@ -24,19 +27,28 @@ public class TetrominoBlock extends Rectangle {
 
     public void setShapeIndex(int index) {
         this.shape_index = index;
-        this.setCenter_node();
+    }
+
+    public void setCenterNode(){
+        this.center_node = true;
+    }
+
+    public boolean isCenter_node(){
+        return this.center_node;
     }
 
     public void setIn_shape(String shape) {
         this.in_shape = shape;
     }
 
-    private void setCenter_node() {
-        if (this.shape_index == 1 && !this.in_shape.equals("S")) {
-            this.center_node = true;
-        }
-        if (this.in_shape.equals("S") && this.shape_index == 2) {
-            this.center_node = true;
+    public void unsetCenter(){
+        this.center_node = false;
+    }
+
+    public void unsetCenterColor(){
+        this.unsetCenter();
+        if(!this.center_node){
+            this.setFill(Color.BLACK);
         }
     }
 
