@@ -94,7 +94,7 @@ public class Tetromino {
                 current_coordinates = init_l;
                 break;
             case "O":
-                current_coordinates = init_o; //error
+                current_coordinates = init_o; //error fix it
                 break;
             case "T":
                 current_coordinates = init_t;
@@ -106,7 +106,7 @@ public class Tetromino {
                 current_coordinates = init_i;
                 break;
             default:
-                System.out.println("error: no shape found");
+                System.out.println("error: no shape found"); // i'm lazy
                 exit();
         }
         initShape();
@@ -240,7 +240,7 @@ public class Tetromino {
         double y = start_y;
         double[][] coordinates = new double[shape_grid_size][2];
         double[][] shape_c = new double[shape_grid_size][2];
-        //showShapeGrid();
+        
         int shape_index = 0;
         for (int i = 0; i < shape_grid_size; i++) {
             y += (i != 0 && i % 3 == 0) ? this.block_size : 0;
