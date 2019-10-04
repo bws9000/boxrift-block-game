@@ -4,8 +4,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static javafx.application.Platform.exit;
-
 /**
  * Tetris Test with JavaFX
  *
@@ -93,9 +91,6 @@ public class Tetromino {
             case "L":
                 current_coordinates = init_l;
                 break;
-            case "O":
-                current_coordinates = init_o; //error fix it
-                break;
             case "T":
                 current_coordinates = init_t;
                 break;
@@ -106,8 +101,9 @@ public class Tetromino {
                 current_coordinates = init_i;
                 break;
             default:
-                System.out.println("error: no shape found"); // i'm lazy
-                exit();
+                //O
+                this.shape_size = 9;
+                current_coordinates = init_o;
         }
         initShape();
     }

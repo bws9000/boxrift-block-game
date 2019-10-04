@@ -45,7 +45,7 @@ public class Main extends Application {
                     break;
             }
         });
-        addTetronimo("S");
+        addTetronimo("Z");
         primaryStage.show();
 
         new AnimationTimer() {
