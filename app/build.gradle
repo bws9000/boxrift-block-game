@@ -41,6 +41,14 @@ application {
     mainClass = 'com.burtsnyder.boxrift.app.AppLauncher'
 }
 
+java {
+    modularity.inferModulePath = true
+}
+application {
+    mainModule = 'com.burtsnyder.boxrift.app'
+    mainClass = 'com.burtsnyder.boxrift.app.AppLauncher'
+}
+
 tasks.named('test') {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
