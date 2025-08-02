@@ -1,6 +1,6 @@
 package com.burtsnyder.boxrift.ui.javafx.view;
 
-import com.burtsnyder.boxrift.platform.Configure;
+import com.burtsnyder.blockengine.platform.Configure;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
