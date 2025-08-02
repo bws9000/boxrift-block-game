@@ -7,14 +7,14 @@
  */
 
 plugins {
-    // Apply the application plugin to add support for building a CLI application in Java.
+    id 'java'
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
 javafx {
-    version = "21"                     // Use your installed JavaFX version
-    modules = [ "javafx.controls", "javafx.fxml" ] // Add others if needed
+    version = "21"
+    modules = [ "javafx.controls", "javafx.fxml" ]
 }
 
 repositories {
@@ -25,7 +25,6 @@ repositories {
 dependencies {
     // Use JUnit Jupiter for testing.
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
-
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:31.1-jre'
 
@@ -41,7 +40,16 @@ application {
     mainClass = 'com.burtsnyder.boxrift.app.AppLauncher'
 }
 
-tasks.named('test') {
-    // Use JUnit Platform for unit tests.
+java {
+    modularity.inferModulePath = true
+}
+application {
+    mainModule = 'com.burtsnyder.boxrift.app'
+    mainClass = 'com.burtsnyder.boxrift.app.AppLauncher'
+}
+
+
+tasks.test {
     useJUnitPlatform()
+    exclude("**/module-info.java")//!here
 }
