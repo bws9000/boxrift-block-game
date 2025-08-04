@@ -25,7 +25,6 @@ public class GameManager implements GameEngine {
 
     @Override
     public void tick() {
-        System.out.println("tick()...");
         applyRules();
     }
 

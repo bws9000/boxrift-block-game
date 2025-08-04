@@ -1,11 +1,11 @@
-package com.burtsnyder.boxrift.ui.javafx;
+package com.burtsnyder.boxrift.ui.javafx.view;
 
 import com.burtsnyder.blockengine.core.engine.GameLoop;
 import com.burtsnyder.blockengine.core.engine.GameManager;
-//import com.burtsnyder.boxrift.rules.GravityRule;
-import com.burtsnyder.boxrift.rules.ColorCycleRule;
 import com.burtsnyder.boxrift.rules.GravityRule;
 import com.burtsnyder.boxrift.rules.SpawnRule;
+import com.burtsnyder.boxrift.ui.javafx.JavaFXBoxriftleRenderer;
+import com.burtsnyder.boxrift.ui.javafx.JavaFXGridRenderer;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -45,7 +45,7 @@ public class JavaFXGameLoop extends GameLoop {
             // Game
             manager.addRule(new GravityRule(manager.getState()));
             manager.addRule(new SpawnRule(manager.getState()));
-            manager.addRule(new ColorCycleRule(manager.getState()));//test
+            ///////
 
             loop.setRenderer(new JavaFXBoxriftleRenderer(loop.getPieceLayer(), loop.getBoxSize()));
             loop.start();

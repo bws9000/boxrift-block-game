@@ -1,8 +1,5 @@
 package com.burtsnyder.blockengine.util;
 
-import com.burtsnyder.blockengine.core.block.Block;
-import com.burtsnyder.blockengine.core.block.BlockMetadata;
-import com.burtsnyder.blockengine.core.board.Cell;
 
 import java.util.Objects;
 
@@ -15,14 +12,13 @@ public class Coord {
         this.y = y;
     }
 
-    public int col() {
+    public int row() {
         return x;
     }
 
-    public int row() {
+    public int col() {
         return y;
     }
-
 
     public Coord add(int dx, int dy) {
         return new Coord(this.x + dx, this.y + dy);
@@ -42,11 +38,6 @@ public class Coord {
 
     public Coord right() {
         return new Coord(this.x + 1, this.y);
-    }
-
-    //later
-    public int manhattanDistance(Coord other) {
-        return Math.abs(this.x - other.x) + Math.abs(this.y - other.y);
     }
 
     @Override

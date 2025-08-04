@@ -2,7 +2,6 @@ package com.burtsnyder.boxrift.ui.javafx.view;
 
 import com.burtsnyder.boxrift.Game;
 import com.burtsnyder.boxrift.config.BlockConfig;
-import com.burtsnyder.boxrift.ui.javafx.JavaFXGameLoop;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;

@@ -49,16 +49,9 @@ public class SpawnRule extends BaseRule {
 
             state.setActivePiece(newPiece);
 
-            System.out.printf("Spawned piece %d (groupId=%d) with %d blocks:\n",
-                    pieceId,
-                    newPiece.getGroupId(),
-                    newPiece.getBlocks().size()
-            );
-
             for (Block block : newPiece.getBlocks()) {
                 Coord pos = block.getPosition();
                 BlockMetadata meta = state.getGrid().getCell(pos).getMetadata();
-                System.out.printf("  Block @ %s -> %s\n", pos, meta);
             }
 
         }
