@@ -1,6 +1,7 @@
 package com.burtsnyder.boxrift.ui.javafx.view;
 
-import com.burtsnyder.blockengine.platform.Configure;
+import com.burtsnyder.boxrift.Game;
+import com.burtsnyder.boxrift.config.BlockConfig;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
@@ -20,38 +21,36 @@ public class JavaFXGameLoopTest {
      */
     @Test
     public void testWindowLaunchesWithCorrectSize() throws Exception {
-        //because application launch blocks current thread
-        Thread fxThread = new Thread(() -> Configure.launch(new String[0]));
+        Thread fxThread = new Thread(() -> Game.main(new String[0]));
         fxThread.setDaemon(true);
         fxThread.start();
 
-        //poll for 4 seconds
         for (int i = 0; i < 20; i++) {
             if (JavaFXGameLoop.JavaFXApp.primaryStageRef != null) break;
             Thread.sleep(200);
         }
 
-        //has primaryStageRef been assigned?
         Stage stage = JavaFXGameLoop.JavaFXApp.primaryStageRef;
         assertNotNull(stage, "Stage should have been initialized");
 
-        //https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/CountDownLatch.html
         CountDownLatch latch = new CountDownLatch(1);
         final double[] width = new double[1];
         final double[] height = new double[1];
 
-        //https://openjfx.io/javadoc/21/javafx.graphics/javafx/application/Platform.html#runLater(java.lang.Runnable)
         Platform.runLater(() -> {
             width[0] = stage.getScene().getWidth();
             height[0] = stage.getScene().getHeight();
             latch.countDown();
         });
 
-        assertTrue(latch.await(2, TimeUnit.SECONDS), "fx thread timed out");
-        assertEquals(400, width[0], "width should be 400");
-        assertEquals(800, height[0], "height should be 800");
+        assertTrue(latch.await(2, TimeUnit.SECONDS), "JavaFX thread timed out..");
 
-        //cleanup
+        int expectedWidth = BlockConfig.GRID_COLUMNS * BlockConfig.BLOCK_SIZE;
+        int expectedHeight = BlockConfig.GRID_ROWS * BlockConfig.BLOCK_SIZE;
+
+        assertEquals(expectedWidth, width[0], "width should match BlockConfig");
+        assertEquals(expectedHeight, height[0], "height should match BlockConfig");
+
         Platform.runLater(stage::close);
     }
 }

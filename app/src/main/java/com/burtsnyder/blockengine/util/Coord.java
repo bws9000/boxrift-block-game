@@ -1,5 +1,6 @@
 package com.burtsnyder.blockengine.util;
 
+
 import java.util.Objects;
 
 public class Coord {
@@ -9,6 +10,14 @@ public class Coord {
     public Coord(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    public int row() {
+        return x;
+    }
+
+    public int col() {
+        return y;
     }
 
     public Coord add(int dx, int dy) {
@@ -29,11 +38,6 @@ public class Coord {
 
     public Coord right() {
         return new Coord(this.x + 1, this.y);
-    }
-
-    //later
-    public int manhattanDistance(Coord other) {
-        return Math.abs(this.x - other.x) + Math.abs(this.y - other.y);
     }
 
     @Override

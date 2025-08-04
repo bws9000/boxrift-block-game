@@ -1,17 +1,16 @@
 package com.burtsnyder.boxrift.ui.javafx;
 
-import com.burtsnyder.blockengine.core.block.Boxriftle;
+import com.burtsnyder.boxrift.actor.Boxriftle;
 import com.burtsnyder.blockengine.platform.interfaces.GameRenderer;
 import com.burtsnyder.blockengine.core.engine.GameState;
 import com.burtsnyder.boxrift.ui.javafx.block.BoxriftleRenderer;
 import javafx.scene.Group;
 
-public class JavaFXRenderer implements GameRenderer {
-
+public class JavaFXBoxriftleRenderer implements GameRenderer {
     private final Group pieceLayer;
     private final int blockSize;
 
-    public JavaFXRenderer(Group pieceLayer, int blockSize) {
+    public JavaFXBoxriftleRenderer(Group pieceLayer, int blockSize) {
         this.pieceLayer = pieceLayer;
         this.blockSize = blockSize;
     }

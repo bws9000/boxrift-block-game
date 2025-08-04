@@ -1,56 +1,47 @@
 package com.burtsnyder.blockengine.core.board;
 
 import com.burtsnyder.blockengine.core.block.Block;
-import com.burtsnyder.blockengine.core.block.Boxriftle;
 import com.burtsnyder.blockengine.util.Coord;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class Grid {
-
     private final int width;
     private final int height;
-    private final Set<Coord> occupied;
+    private final Cell[][] cells;
 
     public Grid(int width, int height) {
         this.width = width;
         this.height = height;
-        this.occupied = new HashSet<>();
-    }
+        this.cells = new Cell[width][height];
 
-    public boolean canPlace(Boxriftle piece) {
-        for (Block block : piece.getBlocks()) {
-            Coord pos = block.getPosition();
-            if (pos.x < 0 || pos.x >= width || pos.y < 0 || pos.y >= height) {
-                return false;
-            }
-            if (occupied.contains(pos)) {
-                return false;
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                cells[x][y] = new Cell();
             }
         }
-        return true;
     }
 
-    public void lock(Boxriftle piece) {
-        for (Block block : piece.getBlocks()) {
-            occupied.add(block.getPosition());
-        }
+
+    public void setBlockAt(int x, int y, Block block) {
+        cells[x][y].setBlock(block);
     }
 
-    public void clearFullLines() {
-        //line clearing..
+    public Long getBlockIdAt(int x, int y) {
+        return cells[y][x].getBlockId();
     }
 
-    public Set<Coord> getOccupiedCoords() {
-        return new HashSet<>(occupied);
+    public Cell getCell(int x, int y) {
+        return cells[x][y];
     }
 
-    public int getWidth() {
-        return width;
+    public int getWidth() { return width; }
+    public int getHeight() { return height; }
+
+    public void setBlockAt(Coord coord, Block block) {
+        setBlockAt(coord.row(),coord.col(), block);
     }
 
-    public int getHeight() {
-        return height;
+    public Cell getCell(Coord coord) {
+        return getCell(coord.row(),coord.col());
     }
+
 }

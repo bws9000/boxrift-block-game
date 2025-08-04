@@ -2,9 +2,10 @@ package com.burtsnyder.boxrift.ui.javafx.view;
 
 import com.burtsnyder.blockengine.core.engine.GameLoop;
 import com.burtsnyder.blockengine.core.engine.GameManager;
-import com.burtsnyder.boxrift.rules.ColorCycleRule;
-import com.burtsnyder.boxrift.rules.LineClearRule;
-import com.burtsnyder.boxrift.ui.javafx.JavaFXRenderer;
+import com.burtsnyder.boxrift.rules.GravityRule;
+import com.burtsnyder.boxrift.rules.SpawnRule;
+import com.burtsnyder.boxrift.ui.javafx.JavaFXBoxriftleRenderer;
+import com.burtsnyder.boxrift.ui.javafx.JavaFXGridRenderer;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -12,10 +13,24 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class JavaFXGameLoop extends GameLoop {
+
+    private static int staticBlockSize;
+    private static int col;
+    private static int row;
+
+    public JavaFXGameLoop(int blockSize, int col, int row) {
+        super(blockSize, col, row);
+        JavaFXGameLoop.staticBlockSize = blockSize;
+        JavaFXGameLoop.col = col;
+        JavaFXGameLoop.row = row;
+    }
+
     public void launchJavaFX() {
         Application.launch(JavaFXApp.class);
     }
-    public Group getPieceLayer() { return pieceLayer; }
+
+    public Group getPieceLayer() {  return pieceLayer; }
+    private int getBoxSize() { return staticBlockSize; }
 
     public static class JavaFXApp extends Application {
         public static Stage primaryStageRef;
@@ -23,27 +38,35 @@ public class JavaFXGameLoop extends GameLoop {
         @Override
         public void start(Stage primaryStage) {
             primaryStageRef = primaryStage;
-            //manager handles state and rules
-            //loop handles tick/updateView and rendering control
-            JavaFXGameLoop loop = new JavaFXGameLoop();
+            JavaFXGameLoop loop = new JavaFXGameLoop(staticBlockSize,col,row);
             loop.initUI(primaryStage);
             GameManager manager = loop.getManager();
-            //game specific rules
-            manager.addRule(new LineClearRule(manager.getState()));
-            manager.addRule(new ColorCycleRule(manager.getState()));//test
-            loop.setRenderer(new JavaFXRenderer(loop.getPieceLayer(), 25));
+
+            // Game
+            manager.addRule(new GravityRule(manager.getState()));
+            manager.addRule(new SpawnRule(manager.getState()));
+            ///////
+
+            loop.setRenderer(new JavaFXBoxriftleRenderer(loop.getPieceLayer(), loop.getBoxSize()));
             loop.start();
         }
     }
 
-    private Group root;
     private Group pieceLayer;
 
     private void initUI(Stage stage) {
-        root = new Group();
+        Group root = new Group();
+        Group gridLayer = new Group();
         pieceLayer = new Group();
-        root.getChildren().add(pieceLayer);
-        Scene scene = new Scene(root, 400, 800);
+
+        root.getChildren().addAll(gridLayer, pieceLayer);
+
+        JavaFXGridRenderer.render(manager.getState().getGrid(), gridLayer, staticBlockSize);
+
+        Scene scene = new Scene(root,
+                row * staticBlockSize,
+                col * staticBlockSize);
+
         stage.setScene(scene);
         stage.setTitle("Boxrift");
         stage.show();
