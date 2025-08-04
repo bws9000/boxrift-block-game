@@ -16,6 +16,9 @@ import com.burtsnyder.blockengine.platform.interfaces.GameRenderer;
  * @see GameRenderer
  */
 public abstract class GameLoop {
+    protected final int blockSize;
+    protected final int col;
+    protected final int row;
     protected final GameManager manager;
     protected GameRenderer renderer;
 
@@ -29,14 +32,17 @@ public abstract class GameLoop {
         }
     }
 
-    public GameLoop() {
-        this.manager = new GameManager();
+    public GameLoop(int blockSize, int col, int row) {
+        this.blockSize = blockSize;
+        this.col = col;
+        this.row = row;
+        this.manager = new GameManager(col, row);
     }
 
     public GameManager getManager() {
         return manager;
     }
 
-
     public abstract void start();
+
 }

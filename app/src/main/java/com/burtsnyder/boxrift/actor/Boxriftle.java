@@ -1,17 +1,26 @@
-package com.burtsnyder.blockengine.core.block;
+package com.burtsnyder.boxrift.actor;
 
+import com.burtsnyder.blockengine.core.actor.Actor;
+import com.burtsnyder.blockengine.core.block.Block;
+import com.burtsnyder.blockengine.core.block.BlockSetColor;
+import com.burtsnyder.blockengine.core.block.BlockSetType;
 import com.burtsnyder.blockengine.util.Coord;
 import com.burtsnyder.blockengine.core.types.Rotation;
 
 import java.util.List;
+import java.util.Random;
 
-public class Boxriftle {
+public class Boxriftle extends Actor {
     private final BlockSetType type;
     private List<Block> blocks;
     private final Coord origin;
     private final Rotation rotation;
 
-    public Boxriftle(BlockSetType type, List<Block> blocks, Coord origin, Rotation rotation) {
+    public Boxriftle(BlockSetType type,
+                     List<Block> blocks,
+                     Coord origin,
+                     Rotation rotation) {
+        super();
         this.type = type;
         this.blocks = blocks;
         this.origin = origin;
@@ -60,5 +69,4 @@ public class Boxriftle {
                 .toList();
         return new Boxriftle(type, recoloredBlocks, origin, rotation);
     }
-
 }

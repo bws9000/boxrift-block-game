@@ -1,13 +1,22 @@
-package com.burtsnyder.blockengine.core.block;
+package com.burtsnyder.boxrift.actor;
 
+import com.burtsnyder.blockengine.core.actor.interfaces.ActorFactory;
 import com.burtsnyder.blockengine.util.Coord;
+import com.burtsnyder.blockengine.core.block.Block;
+import com.burtsnyder.blockengine.core.block.BlockSetType;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BoxriftleFactory {
+public class BoxriftleFactory implements ActorFactory<Boxriftle> {
+    private final BlockSetType type;
 
-    public static Boxriftle create(BlockSetType type) {
+    public BoxriftleFactory(BlockSetType type) {
+        this.type = type;
+    }
+
+    @Override
+    public Boxriftle create() {
         Coord origin = new Coord(7, 0);//tmp pseudo center x
         List<Block> blocks = new ArrayList<>();
 
@@ -59,4 +68,10 @@ public class BoxriftleFactory {
 
         return new Boxriftle(type, blocks, origin, null);
     }
+
+    @Override
+    public Boxriftle createAt(Coord origin) {
+        return null;
+    }
 }
+

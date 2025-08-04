@@ -1,5 +1,9 @@
 package com.burtsnyder.blockengine.util;
 
+import com.burtsnyder.blockengine.core.block.Block;
+import com.burtsnyder.blockengine.core.block.BlockMetadata;
+import com.burtsnyder.blockengine.core.board.Cell;
+
 import java.util.Objects;
 
 public class Coord {
@@ -10,6 +14,15 @@ public class Coord {
         this.x = x;
         this.y = y;
     }
+
+    public int col() {
+        return x;
+    }
+
+    public int row() {
+        return y;
+    }
+
 
     public Coord add(int dx, int dy) {
         return new Coord(this.x + dx, this.y + dy);

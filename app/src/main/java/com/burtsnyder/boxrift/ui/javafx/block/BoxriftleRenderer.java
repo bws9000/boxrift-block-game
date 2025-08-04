@@ -1,7 +1,7 @@
 package com.burtsnyder.boxrift.ui.javafx.block;
 
 import com.burtsnyder.blockengine.core.block.Block;
-import com.burtsnyder.blockengine.core.block.Boxriftle;
+import com.burtsnyder.boxrift.actor.Boxriftle;
 import javafx.scene.Group;
 
 public class BoxriftleRenderer {
