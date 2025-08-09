@@ -17,7 +17,7 @@ public class GameState {
         return nextPieceId++;
     }
 
-    public GameState(int row, int col) {
+    public GameState(int col, int row) {
         this.grid = new Grid(col,row);
     }
 

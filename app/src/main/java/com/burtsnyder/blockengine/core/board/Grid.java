@@ -1,8 +1,5 @@
 package com.burtsnyder.blockengine.core.board;
 
-import com.burtsnyder.blockengine.core.block.Block;
-import com.burtsnyder.blockengine.util.Coord;
-
 public class Grid {
     private final int width;
     private final int height;
@@ -20,28 +17,18 @@ public class Grid {
         }
     }
 
-
-    public void setBlockAt(int x, int y, Block block) {
-        cells[x][y].setBlock(block);
-    }
-
     public Long getBlockIdAt(int x, int y) {
-        return cells[y][x].getBlockId();
-    }
-
-    public Cell getCell(int x, int y) {
-        return cells[x][y];
+        return cells[x][y].getBlockId();
     }
 
     public int getWidth() { return width; }
     public int getHeight() { return height; }
 
-    public void setBlockAt(Coord coord, Block block) {
-        setBlockAt(coord.row(),coord.col(), block);
+    public boolean inBounds(int x, int y) {
+        return x >= 0 && x < width && y >= 0 && y < height;
     }
-
-    public Cell getCell(Coord coord) {
-        return getCell(coord.row(),coord.col());
+    public boolean isEmpty(int x, int y) {
+        return cells[x][y].getBlock() == null;
     }
 
 }

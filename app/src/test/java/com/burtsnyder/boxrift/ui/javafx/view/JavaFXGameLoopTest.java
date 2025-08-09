@@ -48,8 +48,8 @@ public class JavaFXGameLoopTest {
         int expectedWidth = BlockConfig.GRID_COLUMNS * BlockConfig.BLOCK_SIZE;
         int expectedHeight = BlockConfig.GRID_ROWS * BlockConfig.BLOCK_SIZE;
 
-        assertEquals(expectedWidth, width[0], "width should match BlockConfig");
-        assertEquals(expectedHeight, height[0], "height should match BlockConfig");
+        assertEquals(expectedWidth, width[0], "Width should match BlockConfig");
+        assertEquals(expectedHeight, height[0], "Height should match BlockConfig");
 
         Platform.runLater(stage::close);
     }

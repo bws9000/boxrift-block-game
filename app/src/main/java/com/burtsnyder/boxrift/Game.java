@@ -7,7 +7,8 @@ public class Game {
     public static void main(String[] args) {
         new JavaFXGameLoop(
                 BlockConfig.BLOCK_SIZE,
-                BlockConfig.GRID_ROWS,
-                BlockConfig.GRID_COLUMNS).launchJavaFX();
+                BlockConfig.GRID_COLUMNS,
+                BlockConfig.GRID_ROWS
+                ).launchJavaFX();
     }
 }

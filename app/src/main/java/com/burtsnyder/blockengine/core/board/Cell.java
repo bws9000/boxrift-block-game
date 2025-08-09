@@ -5,15 +5,10 @@ import com.burtsnyder.blockengine.core.block.BlockMetadata;
 
 public class Cell {
     private Block block;
-    private BlockMetadata metadata;
 
     public Cell() {
         this.block = null;
-        this.metadata = null;
-    }
-
-    public boolean isEmpty() {
-        return block == null;
+        BlockMetadata metadata = null;
     }
 
     public Block getBlock() {
@@ -24,15 +19,7 @@ public class Cell {
         this.block = block;
     }
 
-    public BlockMetadata getMetadata() {
-        return metadata;
-    }
-
-    public void setMetadata(BlockMetadata metadata) {
-        this.metadata = metadata;
-    }
-
     public Long getBlockId() {
-        return block != null ? block.getMetadata().getPieceId() : null;
+        return block != null ? block.getMetadata().pieceId() : null;
     }
 }
