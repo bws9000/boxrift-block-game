@@ -1,4 +1,4 @@
-## Boxrift Engine (WIP)
+## Boxrift Engine
 
 Modular, testable block puzzle engine inspired by Tetris.  
 Built in Java with clean architecture, JavaFX UI, and Gradle.
