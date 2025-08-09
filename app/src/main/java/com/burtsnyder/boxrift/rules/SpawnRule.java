@@ -2,6 +2,7 @@ package com.burtsnyder.boxrift.rules;
 
 import com.burtsnyder.blockengine.core.engine.GameState;
 import com.burtsnyder.blockengine.core.rules.BaseRule;
+import com.burtsnyder.blockengine.core.rules.RuleContext;
 import com.burtsnyder.blockengine.util.Coord;
 import com.burtsnyder.boxrift.actor.Boxriftle;
 import com.burtsnyder.boxrift.actor.BoxriftleFactory;
@@ -15,7 +16,12 @@ public class SpawnRule extends BaseRule {
     public SpawnRule(GameState state) { super(state); }
 
     @Override
-    public void apply(GameState state) {
+    public int priority() {
+        return -100; // spawn before movem/gravity
+    }
+
+    @Override
+    public void apply(GameState state, RuleContext ctx) {
         if (state.getActivePiece() != null) return;
 
         var grid = state.getGrid();
@@ -26,10 +32,12 @@ public class SpawnRule extends BaseRule {
         BlockSetType type = types[random.nextInt(types.length)];
         Boxriftle piece = new BoxriftleFactory(type).createAt(new Coord(spawnX, spawnY));
 
-        long pieceId = state.generateNextPieceId();
-        long groupId = state.generateNextGroupId();
-        piece.setId(pieceId);
-        piece.setGroupId(groupId);
+        // ids
+        piece.setId(state.generateNextPieceId());
+        piece.setGroupId(state.generateNextGroupId());
+
+
+        //todo: set a game-over flag or trigger a TopOutRule
 
         state.setActivePiece(piece);
     }
