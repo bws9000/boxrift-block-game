@@ -15,4 +15,6 @@ open module com.burtsnyder.boxrift.app {
     exports com.burtsnyder.blockengine.core.types;
     exports com.burtsnyder.boxrift.ui.javafx;
     exports com.burtsnyder.boxrift.ui.javafx.view;
+    exports com.burtsnyder.blockengine.core.rules;
+    exports com.burtsnyder.blockengine.core.input.keyboard;
 }

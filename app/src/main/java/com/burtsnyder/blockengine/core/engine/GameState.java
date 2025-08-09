@@ -17,9 +17,7 @@ public class GameState {
         return nextPieceId++;
     }
 
-    public GameState(int col, int row) {
-        this.grid = new Grid(col,row);
-    }
+    public GameState(int col, int row) { this.grid = new Grid(col,row);}
 
     public void setActivePiece(Boxriftle piece) {
         this.activePiece = piece;

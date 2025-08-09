@@ -6,6 +6,8 @@ import com.burtsnyder.blockengine.core.input.InputBus;
 import com.burtsnyder.blockengine.core.input.MinimalInputBus;
 import com.burtsnyder.blockengine.core.input.keyboard.KeyboardInputSystem;
 import com.burtsnyder.boxrift.rules.GravityRule;
+import com.burtsnyder.boxrift.rules.LateralMoveRule;
+import com.burtsnyder.boxrift.rules.SoftDropRule;
 import com.burtsnyder.boxrift.rules.SpawnRule;
 import com.burtsnyder.boxrift.ui.javafx.JavaFXBoxriftleRenderer;
 import com.burtsnyder.boxrift.ui.javafx.JavaFXGridRenderer;
@@ -22,17 +24,24 @@ public class JavaFXGameLoop extends GameLoop {
     private static int staticBlockSize;
     private static int col;
     private static int row;
+    private static String gameName;
 
-    public JavaFXGameLoop(int blockSize, int col, int row) {
-        this(blockSize, col, row, new MinimalInputBus());
+
+    public KeyboardInputSystem getKeyboard() {
+        return keyboard;
     }
-    public JavaFXGameLoop(int blockSize, int col, int row, InputBus inputBus) {
+
+    public JavaFXGameLoop(int blockSize, int col, int row, String gameName) {
+        this(blockSize, col, row, gameName, new MinimalInputBus());
+    }
+    public JavaFXGameLoop(int blockSize, int col, int row, String gameName, InputBus inputBus) {
         super(blockSize, col, row, inputBus);
         this.inputBus = inputBus;
         this.keyboard = new KeyboardInputSystem(inputBus, 170, 40);
         JavaFXGameLoop.staticBlockSize = blockSize;
         JavaFXGameLoop.col = col;
         JavaFXGameLoop.row = row;
+        JavaFXGameLoop.gameName = gameName;
     }
 
     public void launchJavaFX() {
@@ -48,17 +57,21 @@ public class JavaFXGameLoop extends GameLoop {
         @Override
         public void start(Stage primaryStage) {
             primaryStageRef = primaryStage;
-            JavaFXGameLoop loop = new JavaFXGameLoop(staticBlockSize,col,row);
+            JavaFXGameLoop loop = new JavaFXGameLoop(staticBlockSize, col, row,gameName);
             loop.initUI(primaryStage);
             GameManager manager = loop.getManager();
 
-            // Game rules
-            manager.addRule(new GravityRule(manager.getState()));
+            // Spawn (-100), Lateral (0), Gravity (50)
             manager.addRule(new SpawnRule(manager.getState()));
+            manager.addRule(new LateralMoveRule(manager.getState()));
+            manager.addRule(new SoftDropRule(manager.getState()));    //  25
+            manager.addRule(new GravityRule(manager.getState())); // defaults to 1000ms interval
 
             loop.setRenderer(new JavaFXBoxriftleRenderer(loop.getPieceLayer(), loop.getBoxSize()));
             loop.start();
         }
+
+
     }
 
     private Group pieceLayer;
@@ -79,7 +92,7 @@ public class JavaFXGameLoop extends GameLoop {
         );
 
         stage.setScene(scene);
-        stage.setTitle("Boxrift");
+        stage.setTitle(gameName);
         JavaFXKeyboardAdapter.attachDefault(scene, stage, inputBus);
         scene.getRoot().requestFocus();
         stage.show();
@@ -88,22 +101,16 @@ public class JavaFXGameLoop extends GameLoop {
     @Override
     public void start() {
         new AnimationTimer() {
-            private long lastUpdate = 0;
-
             @Override
             public void handle(long now) {
-
-                for (var a : keyboard.update(now)) {
-                    manager.applyInput(a);
-                }
-
-                if (now - lastUpdate >= 600_000_000) {
-                    manager.tick();
-                    updateView();
-                    lastUpdate = now;
-                }
+                var actions = keyboard.update(now); // DAS ARR --> actions for THIS
+                manager.enqueueActions(actions); // feed to rules through context
+                manager.tick(); // run rules spawn --> lateral --> gravity - to drop or not to drop...
+                updateView(); // render me
             }
         }.start();
     }
+
+
 }
 
