@@ -28,7 +28,6 @@ public class GameState {
     public Boxriftle getActivePiece() {
         return activePiece;
     }
-    //public void setMovingPiece(Boxriftle p) { this.activePiece = p; }
 
     public Grid getGrid() {
         return grid;

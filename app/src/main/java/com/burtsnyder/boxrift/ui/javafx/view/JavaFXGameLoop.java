@@ -5,7 +5,6 @@ import com.burtsnyder.blockengine.core.engine.GameManager;
 import com.burtsnyder.blockengine.core.input.InputBus;
 import com.burtsnyder.blockengine.core.input.MinimalInputBus;
 import com.burtsnyder.blockengine.core.input.keyboard.KeyboardInputSystem;
-import com.burtsnyder.blockengine.platform.interfaces.GameRenderer;
 import com.burtsnyder.boxrift.rules.GravityRule;
 import com.burtsnyder.boxrift.rules.SpawnRule;
 import com.burtsnyder.boxrift.ui.javafx.JavaFXBoxriftleRenderer;
@@ -53,10 +52,9 @@ public class JavaFXGameLoop extends GameLoop {
             loop.initUI(primaryStage);
             GameManager manager = loop.getManager();
 
-            // Game
+            // Game rules
             manager.addRule(new GravityRule(manager.getState()));
             manager.addRule(new SpawnRule(manager.getState()));
-            /// ///
 
             loop.setRenderer(new JavaFXBoxriftleRenderer(loop.getPieceLayer(), loop.getBoxSize()));
             loop.start();
@@ -96,12 +94,10 @@ public class JavaFXGameLoop extends GameLoop {
             public void handle(long now) {
 
                 for (var a : keyboard.update(now)) {
-                    //System.out.println("INPUT ACTION: " + a);
                     manager.applyInput(a);
                 }
 
                 if (now - lastUpdate >= 600_000_000) {
-                    //System.out.println("tick...");
                     manager.tick();
                     updateView();
                     lastUpdate = now;

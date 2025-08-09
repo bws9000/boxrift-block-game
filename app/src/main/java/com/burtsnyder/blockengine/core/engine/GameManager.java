@@ -65,15 +65,4 @@ public class GameManager implements GameEngine {
         }
         return true;
     }
-
-
-//    private List<Coord> getAbsoluteCells(Actor actor) {
-//        var o = actor.getOrigin();
-//        return actor.getBlocks().stream()
-//                .map(b -> {
-//                    var p = b.getPosition();
-//                    return new Coord(o.x + p.x, o.y + p.y);
-//                })
-//                .toList();
-//    }
 }

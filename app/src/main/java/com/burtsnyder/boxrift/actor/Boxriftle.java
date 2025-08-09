@@ -44,12 +44,6 @@ public class Boxriftle extends Actor {
         return this;
     }
 
-    public void setColor(BlockSetColor color) {
-        this.blocks = blocks.stream()
-                .map(b -> new Block(b.getPosition(), b.getType(), color))
-                .toList();
-    }
-
     public Boxriftle withColor(BlockSetColor color) {
         List<Block> recolored = blocks.stream()
                 .map(b -> new Block(b.getPosition(), b.getType(), color))

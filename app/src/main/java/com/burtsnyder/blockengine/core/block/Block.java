@@ -39,21 +39,5 @@ public class Block {
         return blockMetadata;
     }
 
-//    public Block move(int dx, int dy) {
-//        return new Block(position.add(dx, dy), type, color, blockMetadata);
-//    }
-//
-//    public Block withPosition(Coord newPosition) {
-//        return new Block(newPosition, type, color, blockMetadata);
-//    }
-//
-//    public Block withMetadata(BlockMetadata newMetadata) {
-//        return new Block(position, type, color, newMetadata);
-//    }
-//
-//    public Long getBlockId() {
-//        return blockMetadata != null ? blockMetadata.getPieceId() : null;
-//    }
-
 
 }

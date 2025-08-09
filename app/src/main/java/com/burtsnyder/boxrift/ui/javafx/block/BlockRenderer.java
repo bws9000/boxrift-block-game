@@ -6,7 +6,7 @@ import javafx.scene.shape.Rectangle;
 
 
 public class BlockRenderer {
-    // absolute position locked cells on the grid
+    // todo:
     public static Rectangle render(Block block, int blockSize) {
         Rectangle rect = new Rectangle(blockSize, blockSize);
         rect.setX(block.getPosition().x() * blockSize);

@@ -50,7 +50,7 @@ public class KeyboardInputSystem {
                 initialDelayDone = true;
                 lastRepeatAt = now;
             } else {
-                // holding key down
+                // Holding key down
                 if (now - firstHeldAt >= das) {
                     if (now - lastRepeatAt >= arr) {
                         out.add(heldMove);

@@ -49,7 +49,6 @@ public final class JavaFXKeyboardAdapter {
         scene.setOnKeyPressed(e -> {
             KeyCode code = e.getCode();
             if (!pressed.add(code)){
-                //System.out.println("*");
                 return;// stop os repeats
             }
             InputAction a = holdBindings.get(code);

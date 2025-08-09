@@ -13,8 +13,5 @@ package com.burtsnyder.blockengine.core.input;
 public interface InputBus {
     void emit(InputSignal signal);
     InputSignal poll();
-//    void emit(InputAction action);
-//    void emit(InputSignal signal);
-//    InputAction poll();
 }
 

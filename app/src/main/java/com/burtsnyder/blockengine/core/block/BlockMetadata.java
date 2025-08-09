@@ -8,11 +8,6 @@ public record BlockMetadata(long pieceId, long groupId, boolean locked, boolean 
         this(NO_PIECE, NO_GROUP, false, true);
     }
 
-    //    public long getGroupId() { return groupId; }
-//    public boolean isLocked() { return locked; }
-//    public boolean isJustSpawned() { return justSpawned; }
-
-
     public BlockMetadata copyWith(
             Long pieceId,
             Long groupId,
@@ -26,15 +21,4 @@ public record BlockMetadata(long pieceId, long groupId, boolean locked, boolean 
                 justSpawned != null ? justSpawned : this.justSpawned
         );
     }
-
-//    @Override
-//    public String toString() {
-//        return String.format(
-//                "Metadata(pieceId=%d, groupId=%d, locked=%s, justSpawned=%s)",
-//                pieceId,
-//                groupId,
-//                locked,
-//                justSpawned
-//        );
-//    }
 }

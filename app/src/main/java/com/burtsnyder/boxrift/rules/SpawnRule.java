@@ -1,7 +1,5 @@
 package com.burtsnyder.boxrift.rules;
 
-import com.burtsnyder.blockengine.core.block.Block;
-import com.burtsnyder.blockengine.core.block.BlockMetadata;
 import com.burtsnyder.blockengine.core.engine.GameState;
 import com.burtsnyder.blockengine.core.rules.BaseRule;
 import com.burtsnyder.blockengine.util.Coord;

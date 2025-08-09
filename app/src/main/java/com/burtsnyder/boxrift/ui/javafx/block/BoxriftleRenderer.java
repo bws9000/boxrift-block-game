@@ -9,11 +9,6 @@ public class BoxriftleRenderer {
         Group group = new Group();
         var o = piece.getOrigin();
         for (Block block : piece.getBlocks()) {
-
-            int gx = o.x() + block.getPosition().x();
-            int gy = o.y() + block.getPosition().y();
-            //System.out.println("draw @" + gx + "," + gy);
-
             group.getChildren().add(
                     BlockRenderer.renderAt(block, blockSize, o.x(), o.y()) // origin + offset
             );
