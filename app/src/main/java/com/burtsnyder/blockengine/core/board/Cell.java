@@ -12,9 +12,9 @@ public class Cell {
         this.metadata = null;
     }
 
-    public boolean isEmpty() {
-        return block == null;
-    }
+//    public boolean isEmpty() {
+//        return block == null;
+//    }
 
     public Block getBlock() {
         return block;
@@ -28,11 +28,11 @@ public class Cell {
         return metadata;
     }
 
-    public void setMetadata(BlockMetadata metadata) {
-        this.metadata = metadata;
-    }
+//    public void setMetadata(BlockMetadata metadata) {
+//        this.metadata = metadata;
+//    }
 
     public Long getBlockId() {
-        return block != null ? block.getMetadata().getPieceId() : null;
+        return block != null ? block.getMetadata().pieceId() : null;
     }
 }

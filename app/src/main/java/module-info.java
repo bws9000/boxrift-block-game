@@ -3,6 +3,7 @@ open module com.burtsnyder.boxrift.app {
     requires javafx.graphics;
     requires java.desktop;
 
+    exports com.burtsnyder.blockengine.core.input;
     exports com.burtsnyder.blockengine.core.actor;
     exports com.burtsnyder.blockengine.core.board;
     exports com.burtsnyder.blockengine.core.engine;

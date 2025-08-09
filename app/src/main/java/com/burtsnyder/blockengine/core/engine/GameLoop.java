@@ -1,5 +1,6 @@
 package com.burtsnyder.blockengine.core.engine;
 
+import com.burtsnyder.blockengine.core.input.InputBus;
 import com.burtsnyder.blockengine.platform.interfaces.GameRenderer;
 
 /**
@@ -16,6 +17,7 @@ import com.burtsnyder.blockengine.platform.interfaces.GameRenderer;
  * @see GameRenderer
  */
 public abstract class GameLoop {
+    protected final InputBus inputBus;
     protected final int blockSize;
     protected final int col;
     protected final int row;
@@ -32,10 +34,11 @@ public abstract class GameLoop {
         }
     }
 
-    public GameLoop(int blockSize, int col, int row) {
+    public GameLoop(int blockSize, int col, int row, InputBus inputBus) {
         this.blockSize = blockSize;
         this.col = col;
         this.row = row;
+        this.inputBus = inputBus;
         this.manager = new GameManager(col, row);
     }
 

@@ -21,27 +21,35 @@ public class Grid {
     }
 
 
-    public void setBlockAt(int x, int y, Block block) {
-        cells[x][y].setBlock(block);
-    }
+//    public void setBlockAt(int x, int y, Block block) {
+//        cells[x][y].setBlock(block);
+//    }
 
     public Long getBlockIdAt(int x, int y) {
-        return cells[y][x].getBlockId();
+        return cells[x][y].getBlockId();
     }
 
-    public Cell getCell(int x, int y) {
-        return cells[x][y];
-    }
+//    public Cell getCell(int x, int y) {
+//        return cells[x][y];
+//    }
 
     public int getWidth() { return width; }
     public int getHeight() { return height; }
 
-    public void setBlockAt(Coord coord, Block block) {
-        setBlockAt(coord.row(),coord.col(), block);
-    }
+//    public void setBlockAt(Coord coord, Block block) {
+//        setBlockAt(coord.col(),coord.row(), block);
+//    }
+//
+//    public Cell getCell(Coord coord) {
+//
+//        return getCell(coord.col(),coord.row());
+//    }
 
-    public Cell getCell(Coord coord) {
-        return getCell(coord.row(),coord.col());
+    public boolean inBounds(int x, int y) {
+        return x >= 0 && x < width && y >= 0 && y < height;
+    }
+    public boolean isEmpty(int x, int y) {
+        return cells[x][y].getBlock() == null;
     }
 
 }

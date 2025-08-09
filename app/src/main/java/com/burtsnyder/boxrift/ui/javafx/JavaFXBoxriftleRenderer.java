@@ -15,12 +15,18 @@ public class JavaFXBoxriftleRenderer implements GameRenderer {
         this.blockSize = blockSize;
     }
 
+    public JavaFXBoxriftleRenderer() {
+        this(null, 0);
+    }
+
     @Override
     public void render(GameState state) {
         pieceLayer.getChildren().clear();
-        Boxriftle piece = state.getActivePiece();
+        var piece = state.getActivePiece();
         if (piece != null) {
-            pieceLayer.getChildren().add(BoxriftleRenderer.render(piece, blockSize));
+            pieceLayer.getChildren().add(
+                    com.burtsnyder.boxrift.ui.javafx.block.BoxriftleRenderer.render(piece, blockSize)
+            );
         }
     }
 }

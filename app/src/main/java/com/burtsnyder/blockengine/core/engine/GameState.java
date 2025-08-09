@@ -17,7 +17,7 @@ public class GameState {
         return nextPieceId++;
     }
 
-    public GameState(int row, int col) {
+    public GameState(int col, int row) {
         this.grid = new Grid(col,row);
     }
 
@@ -28,6 +28,7 @@ public class GameState {
     public Boxriftle getActivePiece() {
         return activePiece;
     }
+    //public void setMovingPiece(Boxriftle p) { this.activePiece = p; }
 
     public Grid getGrid() {
         return grid;

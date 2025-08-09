@@ -4,69 +4,59 @@ import com.burtsnyder.blockengine.core.actor.Actor;
 import com.burtsnyder.blockengine.core.block.Block;
 import com.burtsnyder.blockengine.core.block.BlockSetColor;
 import com.burtsnyder.blockengine.core.block.BlockSetType;
-import com.burtsnyder.blockengine.util.Coord;
 import com.burtsnyder.blockengine.core.types.Rotation;
+import com.burtsnyder.blockengine.util.Coord;
 
 import java.util.List;
-import java.util.Random;
 
 public class Boxriftle extends Actor {
     private final BlockSetType type;
-    private List<Block> blocks;
-    private final Coord origin;
     private final Rotation rotation;
 
     public Boxriftle(BlockSetType type,
                      List<Block> blocks,
                      Coord origin,
                      Rotation rotation) {
-        super();
+        super(origin, blocks);
         this.type = type;
-        this.blocks = blocks;
-        this.origin = origin;
         this.rotation = rotation;
     }
 
-    public List<Block> getBlocks() {
-        return blocks;
-    }
+    public BlockSetType getType() { return type; }
+    public Rotation getRotation() { return rotation; }
 
-    public Coord getOrigin() {
-        return origin;
-    }
-
-    public Rotation getRotation() {
-        return rotation;
-    }
-
-    public BlockSetType getType() {
-        return type;
-    }
-
+    @Override
     public Boxriftle move(int dx, int dy) {
         Coord newOrigin = origin.add(dx, dy);
-        List<Block> movedBlocks = blocks.stream()
-                .map(block -> block.move(dx, dy))
-                .toList();
-        return new Boxriftle(type, movedBlocks, newOrigin, rotation);
+        Boxriftle moved = new Boxriftle(type, blocks, newOrigin, rotation);
+        moved.setId(this.id);
+        moved.setGroupId(this.groupId);
+        return moved;
     }
 
     public Boxriftle rotateClockwise() {
+        // todo: return new Boxriftle with rotated local blocks/orientation
         return this;
     }
 
-    public Boxriftle rotateCounterClockwise() { return this; }
+    public Boxriftle rotateCounterClockwise() {
+        // todo: return new Boxriftle with rotated local blocks/orientation
+        return this;
+    }
 
     public void setColor(BlockSetColor color) {
         this.blocks = blocks.stream()
-                .map(block -> new Block(block.getPosition(), block.getType(), color))
+                .map(b -> new Block(b.getPosition(), b.getType(), color))
                 .toList();
     }
 
     public Boxriftle withColor(BlockSetColor color) {
-        List<Block> recoloredBlocks = blocks.stream()
-                .map(block -> new Block(block.getPosition(), block.getType(), color))
+        List<Block> recolored = blocks.stream()
+                .map(b -> new Block(b.getPosition(), b.getType(), color))
                 .toList();
-        return new Boxriftle(type, recoloredBlocks, origin, rotation);
+        Boxriftle copy = new Boxriftle(type, recolored, origin, rotation);
+        copy.setId(this.id);
+        copy.setGroupId(this.groupId);
+        return copy;
     }
 }

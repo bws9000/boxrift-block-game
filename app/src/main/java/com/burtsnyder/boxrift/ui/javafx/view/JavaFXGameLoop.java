@@ -2,10 +2,15 @@ package com.burtsnyder.boxrift.ui.javafx.view;
 
 import com.burtsnyder.blockengine.core.engine.GameLoop;
 import com.burtsnyder.blockengine.core.engine.GameManager;
+import com.burtsnyder.blockengine.core.input.InputBus;
+import com.burtsnyder.blockengine.core.input.MinimalInputBus;
+import com.burtsnyder.blockengine.core.input.keyboard.KeyboardInputSystem;
+import com.burtsnyder.blockengine.platform.interfaces.GameRenderer;
 import com.burtsnyder.boxrift.rules.GravityRule;
 import com.burtsnyder.boxrift.rules.SpawnRule;
 import com.burtsnyder.boxrift.ui.javafx.JavaFXBoxriftleRenderer;
 import com.burtsnyder.boxrift.ui.javafx.JavaFXGridRenderer;
+import com.burtsnyder.boxrift.ui.javafx.input.JavaFXKeyboardAdapter;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -13,13 +18,19 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class JavaFXGameLoop extends GameLoop {
-
+    private final InputBus inputBus;
+    private final KeyboardInputSystem keyboard;
     private static int staticBlockSize;
     private static int col;
     private static int row;
 
     public JavaFXGameLoop(int blockSize, int col, int row) {
-        super(blockSize, col, row);
+        this(blockSize, col, row, new MinimalInputBus());
+    }
+    public JavaFXGameLoop(int blockSize, int col, int row, InputBus inputBus) {
+        super(blockSize, col, row, inputBus);
+        this.inputBus = inputBus;
+        this.keyboard = new KeyboardInputSystem(inputBus, 170, 40);
         JavaFXGameLoop.staticBlockSize = blockSize;
         JavaFXGameLoop.col = col;
         JavaFXGameLoop.row = row;
@@ -45,7 +56,7 @@ public class JavaFXGameLoop extends GameLoop {
             // Game
             manager.addRule(new GravityRule(manager.getState()));
             manager.addRule(new SpawnRule(manager.getState()));
-            ///////
+            /// ///
 
             loop.setRenderer(new JavaFXBoxriftleRenderer(loop.getPieceLayer(), loop.getBoxSize()));
             loop.start();
@@ -63,12 +74,16 @@ public class JavaFXGameLoop extends GameLoop {
 
         JavaFXGridRenderer.render(manager.getState().getGrid(), gridLayer, staticBlockSize);
 
-        Scene scene = new Scene(root,
-                row * staticBlockSize,
-                col * staticBlockSize);
+        Scene scene = new Scene(
+                root,
+                col * staticBlockSize,
+                row * staticBlockSize
+        );
 
         stage.setScene(scene);
         stage.setTitle("Boxrift");
+        JavaFXKeyboardAdapter.attachDefault(scene, stage, inputBus);
+        scene.getRoot().requestFocus();
         stage.show();
     }
 
@@ -79,7 +94,14 @@ public class JavaFXGameLoop extends GameLoop {
 
             @Override
             public void handle(long now) {
+
+                for (var a : keyboard.update(now)) {
+                    //System.out.println("INPUT ACTION: " + a);
+                    manager.applyInput(a);
+                }
+
                 if (now - lastUpdate >= 600_000_000) {
+                    //System.out.println("tick...");
                     manager.tick();
                     updateView();
                     lastUpdate = now;

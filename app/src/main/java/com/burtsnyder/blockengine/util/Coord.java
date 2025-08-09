@@ -1,44 +1,39 @@
 package com.burtsnyder.blockengine.util;
 
 
-import java.util.Objects;
+/**
+ * @param x column
+ * @param y row
+ */
+public record Coord(int x, int y) {
 
-public class Coord {
-    public final int x;
-    public final int y;
-
-    public Coord(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    public int row() {
+    public int col() {
         return x;
     }
 
-    public int col() {
+    public int row() {
         return y;
     }
 
     public Coord add(int dx, int dy) {
-        return new Coord(this.x + dx, this.y + dy);
+        return new Coord(x + dx, y + dy);
     }
 
-    public Coord up() {
-        return new Coord(this.x, this.y - 1);
-    }
+//    public Coord up() {
+//        return new Coord(x, y - 1);
+//    }
 
-    public Coord down() {
-        return new Coord(this.x, this.y + 1);
-    }
-
-    public Coord left() {
-        return new Coord(this.x - 1, this.y);
-    }
-
-    public Coord right() {
-        return new Coord(this.x + 1, this.y);
-    }
+//    public Coord down() {
+//        return new Coord(x, y + 1);
+//    }
+//
+//    public Coord left() {
+//        return new Coord(x - 1, y);
+//    }
+//
+//    public Coord right() {
+//        return new Coord(x + 1, y);
+//    }
 
     @Override
     public boolean equals(Object o) {
@@ -47,15 +42,10 @@ public class Coord {
         return x == coord.x && y == coord.y;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(x, y);
-    }
-
-    @Override
-    public String toString() {
-        return "(" + x + "," + y + ")";
-    }
+//    @Override
+//    public String toString() {
+//        return "(" + x + "," + y + ")";
+//    }
 }
 
 
